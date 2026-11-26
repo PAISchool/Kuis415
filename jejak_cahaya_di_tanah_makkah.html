@@ -1,0 +1,3007 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jejak Cahaya di Tanah Makkah - Kuis Interaktif SD</title>
+  <!-- Google Fonts: Fredoka (ceria ramah anak) & Nunito (mudah dibaca) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & PALET WARNA PETUALANGAN ISLAM (BIRU LANGIT, ZAMRUD, EMAS, KREM)
+       ========================================================================== */
+    :root {
+      --sky-light: #e0f2fe;
+      --sky-main: #0ea5e9;
+      --sky-dark: #0369a1;
+      --emerald-light: #d1fae5;
+      --emerald-main: #10b981;
+      --emerald-dark: #047857;
+      --gold-light: #fef3c7;
+      --gold-main: #f59e0b;
+      --gold-dark: #b45309;
+      --cream-bg: #fffdf7;
+      --cream-card: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --danger-light: #fee2e2;
+      --danger-main: #ef4444;
+      --danger-dark: #b91c1c;
+      --border-soft: #e2e8f0;
+      --shadow-card: 0 10px 25px -5px rgba(3, 105, 161, 0.12), 0 8px 10px -6px rgba(3, 105, 161, 0.08);
+      --shadow-btn: 0 5px 0 rgba(0, 0, 0, 0.18);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(160deg, #e0f2fe 0%, #fffdf7 45%, #fef3c7 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, .font-title {
+      font-family: 'Fredoka', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    /* ==========================================================================
+       NAVBAR / TOP BAR KONSISTEN
+       ========================================================================== */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 253, 247, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid var(--gold-light);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--emerald-main), var(--sky-main));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 22px;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+      flex-shrink: 0;
+    }
+
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--sky-dark);
+      line-height: 1.1;
+    }
+
+    .brand-sub {
+      font-size: 0.78rem;
+      color: var(--emerald-dark);
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill-student {
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      border: 2px solid #fcd34d;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      max-width: 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-icon {
+      border: 2px solid var(--border-soft);
+      background: white;
+      color: var(--text-main);
+      border-radius: 14px;
+      padding: 8px 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .btn-icon:hover {
+      background: var(--sky-light);
+      border-color: var(--sky-main);
+    }
+
+    .btn-icon:active {
+      transform: scale(0.96);
+    }
+
+    /* ==========================================================================
+       CONTAINER UTAMA & TRANSISI HALAMAN
+       ========================================================================== */
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeSlideUp 0.35s ease-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       TOMBOL GAME-BASED YANG BESAR & RAMAH ANAK
+       ========================================================================== */
+    .btn {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.08rem;
+      font-weight: 600;
+      padding: 14px 24px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.16s ease;
+      box-shadow: var(--shadow-btn);
+      min-height: 52px;
+      text-align: center;
+    }
+
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.18);
+    }
+
+    .btn-emerald {
+      background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+    }
+
+    .btn-emerald:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-sky {
+      background: linear-gradient(180deg, #0ea5e9 0%, #0284c7 100%);
+      color: #ffffff;
+    }
+
+    .btn-sky:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-gold {
+      background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+      color: #ffffff;
+    }
+
+    .btn-gold:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--sky-dark);
+      border: 2px solid #bae6fd;
+      box-shadow: 0 4px 0 #bae6fd;
+    }
+
+    .btn-outline:hover {
+      background: var(--sky-light);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ==========================================================================
+       HALAMAN 1: HOME / PEMBUKA PETUALANGAN
+       ========================================================================== */
+    .hero-card {
+      background: var(--cream-card);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      border: 3px solid #fde68a;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 45%, #10b981 100%);
+      padding: 28px 22px 20px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1.5px solid rgba(255, 255, 255, 0.5);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.75rem, 4.5vw, 2.65rem);
+      font-weight: 700;
+      text-shadow: 0 3px 0 rgba(3, 105, 161, 0.45);
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.4vw, 1.2rem);
+      font-weight: 700;
+      color: #fef3c7;
+      max-width: 680px;
+      margin: 0 auto 18px;
+    }
+
+    /* Ilustrasi SVG Suasana Makkah Edukatif & Santun */
+    .makkah-illustration-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+      background: #fef3c7;
+    }
+
+    .hero-body {
+      padding: 26px 22px 30px;
+    }
+
+    .welcome-box {
+      background: linear-gradient(135deg, var(--sky-light) 0%, var(--emerald-light) 100%);
+      border: 2px dashed var(--sky-main);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .welcome-box p {
+      font-size: clamp(1.05rem, 2.3vw, 1.22rem);
+      font-weight: 800;
+      color: var(--sky-dark);
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 768px) {
+      .home-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .input-panel {
+      background: #fffbeb;
+      border: 2.5px solid #fcd34d;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .input-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.18rem;
+      color: var(--gold-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 15px 18px;
+      font-size: 1.12rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      border: 3px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 10px;
+      background: white;
+      color: var(--text-main);
+    }
+
+    .name-input:focus {
+      border-color: var(--emerald-main);
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .error-hint {
+      color: var(--danger-dark);
+      background: var(--danger-light);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: none;
+    }
+
+    .instructions-panel {
+      background: #f8fafc;
+      border: 2.5px solid #cbd5e1;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+    }
+
+    .instructions-panel h3 {
+      font-size: 1.18rem;
+      color: var(--emerald-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .instruction-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .instruction-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--sky-main);
+      color: white;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       HALAMAN 2: PETA LEVEL PETUALANGAN (3 KARTU LEVEL)
+       ========================================================================== */
+    .hub-header {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-card);
+      border: 2.5px solid #bae6fd;
+      margin-bottom: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .hub-greeting h2 {
+      font-size: 1.45rem;
+      color: var(--sky-dark);
+    }
+
+    .hub-greeting p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .overall-progress-box {
+      min-width: 240px;
+      flex: 1;
+      max-width: 360px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+      color: var(--emerald-dark);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid #cbd5e1;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sky-main), var(--emerald-main));
+      width: 0%;
+      transition: width 0.4s ease;
+      border-radius: 999px;
+    }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 26px;
+    }
+
+    @media (max-width: 860px) {
+      .levels-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .level-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      border: 3px solid transparent;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .level-card.lvl-1 { border-color: #6ee7b7; }
+    .level-card.lvl-2 { border-color: #7dd3fc; }
+    .level-card.lvl-3 { border-color: #fcd34d; }
+
+    .level-top {
+      padding: 20px;
+      color: white;
+      position: relative;
+    }
+
+    .lvl-1 .level-top { background: linear-gradient(135deg, #10b981, #047857); }
+    .lvl-2 .level-top { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+    .lvl-3 .level-top { background: linear-gradient(135deg, #f59e0b, #b45309); }
+
+    .level-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .level-top h3 {
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .level-theme {
+      font-size: 0.95rem;
+      opacity: 0.95;
+      font-weight: 700;
+    }
+
+    .level-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .level-stats {
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.94rem;
+      font-weight: 700;
+    }
+
+    .level-stats div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .hub-footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius-xl);
+      border: 2.5px solid #fde68a;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* ==========================================================================
+       HALAMAN 3: TAMPILAN HALAMAN SOAL INTERAKTIF
+       ========================================================================== */
+    .quiz-topbar {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      border: 2px solid #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .level-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .pill-lvl-1 { background: var(--emerald-main); }
+    .pill-lvl-2 { background: var(--sky-main); }
+    .pill-lvl-3 { background: var(--gold-main); }
+
+    /* Peta Nomor Soal (Navigasi Cepat & Indikator Terjawab) */
+    .question-map-drawer {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: 2px solid #bae6fd;
+    }
+
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--sky-dark);
+    }
+
+    .legend-row {
+      display: flex;
+      gap: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dot-ind {
+      width: 12px;
+      height: 12px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .q-dots-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 6px;
+    }
+
+    @media (max-width: 640px) {
+      .q-dots-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .q-dot-btn {
+      height: 36px;
+      border-radius: 10px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .q-dot-btn.answered {
+      background: var(--emerald-light);
+      border-color: var(--emerald-main);
+      color: var(--emerald-dark);
+    }
+
+    .q-dot-btn.current {
+      background: var(--sky-main);
+      border-color: var(--sky-dark);
+      color: white;
+      transform: scale(1.08);
+      box-shadow: 0 3px 8px rgba(14, 165, 233, 0.35);
+    }
+
+    /* Kartu Pertanyaan Utama */
+    .question-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 26px 24px;
+      box-shadow: var(--shadow-card);
+      border: 3px solid #fde68a;
+      margin-bottom: 20px;
+    }
+
+    .q-number-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-light);
+      color: var(--gold-dark);
+      padding: 6px 14px;
+      border-radius: 12px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .question-text {
+      font-size: clamp(1.18rem, 2.8vw, 1.45rem);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.55;
+      margin-bottom: 24px;
+      white-space: pre-line;
+    }
+
+    /* Kartu Pilihan Jawaban A, B, C, D */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .option-card {
+      width: 100%;
+      text-align: left;
+      background: #f8fafc;
+      border: 3px solid #cbd5e1;
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.02rem, 2.3vw, 1.18rem);
+      font-weight: 700;
+      color: var(--text-main);
+      position: relative;
+    }
+
+    .option-card:hover {
+      background: var(--sky-light);
+      border-color: var(--sky-main);
+      transform: translateX(4px);
+    }
+
+    .option-letter {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: white;
+      border: 2.5px solid #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--sky-dark);
+      flex-shrink: 0;
+      transition: all 0.16s ease;
+    }
+
+    .option-text {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .option-check {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--emerald-main);
+      color: white;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      flex-shrink: 0;
+      animation: popIn 0.2s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.4); }
+      80% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* Status Jawaban Terpilih */
+    .option-card.selected {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-color: var(--emerald-main);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.22);
+    }
+
+    .option-card.selected .option-letter {
+      background: var(--emerald-main);
+      border-color: var(--emerald-dark);
+      color: white;
+    }
+
+    .option-card.selected .option-check {
+      display: flex;
+    }
+
+    /* Tombol Navigasi Bawah Soal */
+    .quiz-nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quiz-nav-bar .btn {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    /* ==========================================================================
+       HALAMAN 4: SERTIFIKAT & HASIL AKHIR
+       ========================================================================== */
+    .certificate-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+      border: 5px solid var(--gold-main);
+      border-radius: 28px;
+      padding: 32px 24px;
+      box-shadow: 0 20px 40px rgba(180, 83, 9, 0.16);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .cert-ribbon {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-dark));
+      color: white;
+      padding: 8px 22px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    }
+
+    .stars-row {
+      font-size: 2.5rem;
+      margin: 8px 0 12px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .star-anim {
+      display: inline-block;
+      animation: starBounce 1.4s infinite ease-in-out;
+    }
+
+    .star-anim:nth-child(2) { animation-delay: 0.2s; }
+    .star-anim:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes starBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.12); }
+    }
+
+    .cert-student-name {
+      font-size: clamp(1.6rem, 4vw, 2.3rem);
+      color: var(--sky-dark);
+      margin: 6px 0;
+      text-decoration: underline;
+      text-decoration-color: #fcd34d;
+      text-underline-offset: 6px;
+    }
+
+    .predicate-banner {
+      display: inline-block;
+      margin: 14px 0;
+      padding: 12px 28px;
+      border-radius: 18px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+    }
+
+    .pred-sangat-hebat { background: linear-gradient(135deg, #10b981, #047857); }
+    .pred-hebat { background: linear-gradient(135deg, #0ea5e9, #0369a1); }
+    .pred-berlatih { background: linear-gradient(135deg, #f59e0b, #b45309); }
+    .pred-semangat { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+
+    .score-big-box {
+      background: white;
+      border: 3px solid #bae6fd;
+      border-radius: 22px;
+      padding: 18px;
+      max-width: 340px;
+      margin: 12px auto 22px;
+    }
+
+    .score-big-num {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--emerald-dark);
+      line-height: 1;
+    }
+
+    .score-big-sub {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .stats-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    @media (max-width: 680px) {
+      .stats-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-tile {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 14px 10px;
+    }
+
+    .stat-tile-val {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sky-dark);
+    }
+
+    .stat-tile-lbl {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+
+    .level-breakdown-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 680px) {
+      .level-breakdown-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .lvl-mini-badge {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .motivation-box {
+      background: var(--sky-light);
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-weight: 800;
+      color: var(--sky-dark);
+      margin-bottom: 14px;
+      font-size: 1.02rem;
+    }
+
+    .closing-message-box {
+      background: var(--emerald-light);
+      border: 2px solid #6ee7b7;
+      border-radius: 18px;
+      padding: 18px 20px;
+      font-weight: 700;
+      color: var(--emerald-dark);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    /* ==========================================================================
+       HALAMAN 5: MENU PEMBAHASAN LENGKAP (36 SOAL)
+       ========================================================================== */
+    .review-header-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      border: 3px solid #bae6fd;
+      margin-bottom: 20px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .filter-btn {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--sky-main);
+      border-color: var(--sky-dark);
+      color: white;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .review-item {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow-card);
+      border-left: 8px solid #cbd5e1;
+    }
+
+    .review-item.is-correct {
+      border-left-color: var(--emerald-main);
+      border-top: 2px solid #a7f3d0;
+      border-right: 2px solid #a7f3d0;
+      border-bottom: 2px solid #a7f3d0;
+    }
+
+    .review-item.is-wrong {
+      border-left-color: var(--danger-main);
+      border-top: 2px solid #fecaca;
+      border-right: 2px solid #fecaca;
+      border-bottom: 2px solid #fecaca;
+    }
+
+    .review-top-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .status-badge {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    .status-correct {
+      background: var(--emerald-light);
+      color: var(--emerald-dark);
+    }
+
+    .status-wrong {
+      background: var(--danger-light);
+      color: var(--danger-dark);
+    }
+
+    .review-q-text {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      white-space: pre-line;
+    }
+
+    .review-answers-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .review-answers-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .ans-box {
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 0.96rem;
+      font-weight: 700;
+    }
+
+    .ans-user-correct {
+      background: var(--emerald-light);
+      border: 2px solid var(--emerald-main);
+      color: var(--emerald-dark);
+    }
+
+    .ans-user-wrong {
+      background: var(--danger-light);
+      border: 2px solid var(--danger-main);
+      color: var(--danger-dark);
+    }
+
+    .ans-key {
+      background: #eff6ff;
+      border: 2px solid #60a5fa;
+      color: #1e3a8a;
+    }
+
+    .explanation-box {
+      background: #fffbeb;
+      border: 2px dashed #fbbf24;
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #78350f;
+    }
+
+    /* ==========================================================================
+       MODAL KONFIRMASI & PERINGATAN CUSTOM (PENGGANTI ALERT/CONFIRM)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-card {
+      background: white;
+      border-radius: 26px;
+      max-width: 460px;
+      width: 100%;
+      padding: 26px 24px;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      border: 4px solid #fde68a;
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      color: var(--sky-dark);
+      margin-bottom: 10px;
+    }
+
+    .modal-desc {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* Canvas Confetti */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas Confetti untuk Perayaan Hasil -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP NAVIGATION BAR KONSISTEN -->
+  <header class="topbar">
+    <div class="brand-mini">
+      <div class="brand-badge" aria-hidden="true">🕌</div>
+      <div class="brand-text-wrap">
+        <span class="brand-title">JEJAK CAHAYA DI TANAH MAKKAH</span>
+        <span class="brand-sub">Petualangan Sejarah Islam Kelas 4 SD</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <div id="top-student-pill" class="pill-student" title="Nama Petualang">
+        <span>🧭</span>
+        <span id="top-student-name">Petualang</span>
+      </div>
+
+      <button id="btn-sound-toggle" class="btn-icon" type="button" onclick="toggleSound()" title="Suara Efek">
+        <span id="sound-icon">🔊</span>
+        <span id="sound-label">Suara ON</span>
+      </button>
+
+      <button id="btn-nav-hub" class="btn-icon" type="button" onclick="goToHub()" style="display:none;" title="Peta Level">
+        <span>🗺️ Peta Level</span>
+      </button>
+
+      <button id="btn-nav-home" class="btn-icon" type="button" onclick="confirmGoHome()" style="display:none;" title="Halaman Utama">
+        <span>🏠 Beranda</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ======================================================================
+         1. HALAMAN PEMBUKA (HOME)
+         ====================================================================== -->
+    <section id="screen-home" class="screen active">
+      <div class="hero-card">
+        <div class="hero-banner">
+          <div class="hero-badge">✨ ISLAMIC EDUCATIONAL ADVENTURE GAME ✨</div>
+          <h1 class="hero-title">JEJAK CAHAYA DI TANAH MAKKAH</h1>
+          <p class="hero-subtitle">Petualangan Kuis Sejarah Dakwah Islam pada Masa Awal dan Assabiqunal Awwalun</p>
+
+          <!-- Ilustrasi Edukatif & Santun Suasana Makkah Masa Awal Dakwah (SVG Custom) -->
+          <div class="makkah-illustration-wrap">
+            <svg viewBox="0 0 800 290" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi edukatif suasana lembah Makkah dan cahaya petunjuk">
+              <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0284c7"/>
+                  <stop offset="55%" stop-color="#38bdf8"/>
+                  <stop offset="100%" stop-color="#fef3c7"/>
+                </linearGradient>
+                <radialGradient id="lightGlow" cx="50%" cy="32%" r="45%">
+                  <stop offset="0%" stop-color="#fef08a" stop-opacity="0.95"/>
+                  <stop offset="60%" stop-color="#fde047" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="hillBack" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#d97706"/>
+                  <stop offset="100%" stop-color="#92400e"/>
+                </linearGradient>
+                <linearGradient id="hillFront" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#b45309"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Langit & Cahaya Harapan -->
+              <rect width="800" height="290" fill="url(#skyGrad)"/>
+              <circle cx="400" cy="95" r="170" fill="url(#lightGlow)"/>
+
+              <!-- Bintang-bintang & Bulan Sabit lembut -->
+              <path d="M125 48 A22 22 0 1 0 148 75 A17 17 0 1 1 125 48 Z" fill="#fef9c3" opacity="0.9"/>
+              <circle cx="230" cy="45" r="3" fill="#fef9c3"/>
+              <circle cx="570" cy="40" r="3.5" fill="#fef9c3"/>
+              <circle cx="665" cy="65" r="2.8" fill="#fef9c3"/>
+              <circle cx="310" cy="32" r="2.5" fill="#fef9c3"/>
+              <circle cx="495" cy="30" r="2.5" fill="#fef9c3"/>
+
+              <!-- Pegunungan Batu Makkah (Jabal Nur & Bukit Safa) -->
+              <path d="M0 220 L110 125 L220 195 L340 110 L460 190 L590 115 L710 185 L800 135 L800 290 L0 290 Z" fill="url(#hillBack)" opacity="0.85"/>
+              <path d="M0 245 Q160 175 310 230 T620 215 T800 235 L800 290 L0 290 Z" fill="url(#hillFront)"/>
+
+              <!-- Siluet Bangunan Makkah Klasik & Ka'bah yang Santun -->
+              <g transform="translate(345, 152)">
+                <!-- Bangunan Ka'bah -->
+                <rect x="20" y="25" width="70" height="62" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5"/>
+                <!-- Kiswah Emas -->
+                <rect x="20" y="38" width="70" height="7" fill="#fbbf24"/>
+                <rect x="58" y="52" width="12" height="20" rx="2" fill="#f59e0b"/>
+              </g>
+
+              <!-- Rumah-rumah tanah liat khas Makkah Kuno -->
+              <g fill="#fde68a" stroke="#b45309" stroke-width="2">
+                <rect x="130" y="195" width="54" height="42" rx="4"/>
+                <rect x="148" y="212" width="14" height="25" rx="6" fill="#92400e"/>
+                <rect x="192" y="205" width="44" height="32" rx="4"/>
+
+                <rect x="555" y="196" width="58" height="40" rx="4"/>
+                <rect x="576" y="212" width="14" height="24" rx="6" fill="#92400e"/>
+                <rect x="622" y="204" width="46" height="32" rx="4"/>
+              </g>
+
+              <!-- Pohon Kurma di Lembah Makkah -->
+              <g transform="translate(92, 185)">
+                <rect x="12" y="18" width="6" height="44" rx="3" fill="#78350f"/>
+                <path d="M15 20 Q-5 8 -14 22 Q2 18 15 20 Z" fill="#059669"/>
+                <path d="M15 20 Q35 8 44 22 Q28 18 15 20 Z" fill="#10b981"/>
+                <path d="M15 18 Q0 0 -10 10 Q4 12 15 18 Z" fill="#10b981"/>
+                <path d="M15 18 Q30 0 40 10 Q26 12 15 18 Z" fill="#059669"/>
+              </g>
+
+              <g transform="translate(682, 188)">
+                <rect x="12" y="18" width="6" height="42" rx="3" fill="#78350f"/>
+                <path d="M15 20 Q-5 8 -14 22 Q2 18 15 20 Z" fill="#059669"/>
+                <path d="M15 20 Q35 8 44 22 Q28 18 15 20 Z" fill="#10b981"/>
+              </g>
+
+              <!-- Hamparan Lembah Pasir -->
+              <path d="M0 255 Q200 240 400 255 T800 250 L800 290 L0 290 Z" fill="#fde68a"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="hero-body">
+          <!-- Tulisan Sambutan -->
+          <div class="welcome-box">
+            <p>
+              "Selamat datang, Petualang Cilik!<br>
+              Siapkah kamu menjelajahi kisah perjuangan dakwah Islam pada masa awal?"
+            </p>
+          </div>
+
+          <div class="home-grid">
+            <!-- Form Nama Peserta Didik -->
+            <div class="input-panel">
+              <label for="student-name-input" class="input-label">
+                <span>🎒</span>
+                <span>Tuliskan Nama Lengkapmu:</span>
+              </label>
+              <input
+                type="text"
+                id="student-name-input"
+                class="name-input"
+                placeholder="Contoh: Ahmad Zaki / Siti Aisyah"
+                maxlength="40"
+                autocomplete="off"
+              />
+              <div id="name-error-msg" class="error-hint">
+                ⚠️ Ayo isi namamu terlebih dahulu sebelum memulai petualangan!
+              </div>
+              <button type="button" class="btn btn-emerald" onclick="startAdventure()">
+                <span>🚀</span>
+                <span>MULAI PETUALANGAN</span>
+              </button>
+            </div>
+
+            <!-- Petunjuk Pengerjaan -->
+            <div class="instructions-panel">
+              <h3><span>📜</span><span>Petunjuk Pengerjaan:</span></h3>
+              <ul class="instruction-list">
+                <li>
+                  <span class="step-dot">1</span>
+                  <span>Bacalah setiap pertanyaan dengan teliti.</span>
+                </li>
+                <li>
+                  <span class="step-dot">2</span>
+                  <span>Pilih satu jawaban yang paling tepat.</span>
+                </li>
+                <li>
+                  <span class="step-dot">3</span>
+                  <span>Kerjakan soal sesuai tingkat kesulitannya.</span>
+                </li>
+                <li>
+                  <span class="step-dot">4</span>
+                  <span>Kerjakan dengan jujur, teliti, dan penuh semangat.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         2. HALAMAN PETA LEVEL KUIS (3 LEVEL)
+         ====================================================================== -->
+    <section id="screen-hub" class="screen">
+      <div class="hub-header">
+        <div class="hub-greeting">
+          <h2>🗺️ Peta Petualangan <span id="hub-student-name" style="color:var(--emerald-dark);">Petualang</span></h2>
+          <p>Pilih level petualanganmu! Selesaikan seluruh 36 soal untuk meraih sertifikat penghargaan.</p>
+        </div>
+
+        <div class="overall-progress-box">
+          <div class="progress-meta">
+            <span>Progres Keseluruhan</span>
+            <span id="hub-total-progress-text">0 / 36 Soal (0%)</span>
+          </div>
+          <div class="progress-track">
+            <div id="hub-total-progress-bar" class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Kartu Level -->
+      <div class="levels-grid">
+        <!-- LEVEL 1 – MUDAH -->
+        <div class="level-card lvl-1">
+          <div class="level-top">
+            <span class="level-tag">⭐ LEVEL 1 – MUDAH</span>
+            <h3>Gerbang Awal Petualangan</h3>
+            <p class="level-theme">Mengingat tokoh, tempat, istilah, dan peristiwa penting.</p>
+          </div>
+          <div class="level-body">
+            <div class="level-stats">
+              <div><span>Nomor Soal:</span><span>Soal 1 – 12</span></div>
+              <div><span>Nilai Per Soal:</span><span>10 Poin</span></div>
+              <div><span>Maksimal Skor:</span><span>120 Poin</span></div>
+              <div><span>Sudah Dikerjakan:</span><span id="lvl1-done-text" style="color:var(--emerald-dark);">0 / 12 Soal</span></div>
+            </div>
+            <div class="progress-track">
+              <div id="lvl1-bar" class="progress-fill" style="background:var(--emerald-main);"></div>
+            </div>
+            <button type="button" class="btn btn-emerald" onclick="openQuestion(0)">
+              <span>🚪</span>
+              <span id="lvl1-btn-label">Mulai Level 1</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LEVEL 2 – SEDANG -->
+        <div class="level-card lvl-2">
+          <div class="level-top">
+            <span class="level-tag">⭐⭐ LEVEL 2 – SEDANG</span>
+            <h3>Menjelajahi Jejak Dakwah</h3>
+            <p class="level-theme">Memahami hubungan antartokoh, tempat, dan tahapan dakwah.</p>
+          </div>
+          <div class="level-body">
+            <div class="level-stats">
+              <div><span>Nomor Soal:</span><span>Soal 13 – 24</span></div>
+              <div><span>Nilai Per Soal:</span><span>15 Poin</span></div>
+              <div><span>Maksimal Skor:</span><span>180 Poin</span></div>
+              <div><span>Sudah Dikerjakan:</span><span id="lvl2-done-text" style="color:var(--sky-dark);">0 / 12 Soal</span></div>
+            </div>
+            <div class="progress-track">
+              <div id="lvl2-bar" class="progress-fill" style="background:var(--sky-main);"></div>
+            </div>
+            <button type="button" class="btn btn-sky" onclick="openQuestion(12)">
+              <span>🧭</span>
+              <span id="lvl2-btn-label">Mulai Level 2</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- LEVEL 3 – SULIT -->
+        <div class="level-card lvl-3">
+          <div class="level-top">
+            <span class="level-tag">⭐⭐⭐ LEVEL 3 – SULIT</span>
+            <h3>Tantangan Petualang Sejarah Islam</h3>
+            <p class="level-theme">Menganalisis peristiwa, sebab-akibat, dan keteladanan.</p>
+          </div>
+          <div class="level-body">
+            <div class="level-stats">
+              <div><span>Nomor Soal:</span><span>Soal 25 – 36</span></div>
+              <div><span>Nilai Per Soal:</span><span>20 Poin</span></div>
+              <div><span>Maksimal Skor:</span><span>240 Poin</span></div>
+              <div><span>Sudah Dikerjakan:</span><span id="lvl3-done-text" style="color:var(--gold-dark);">0 / 12 Soal</span></div>
+            </div>
+            <div class="progress-track">
+              <div id="lvl3-bar" class="progress-fill" style="background:var(--gold-main);"></div>
+            </div>
+            <button type="button" class="btn btn-gold" onclick="openQuestion(24)">
+              <span>🏆</span>
+              <span id="lvl3-btn-label">Mulai Level 3</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hub-footer-actions">
+        <button type="button" class="btn btn-outline" onclick="continueUnanswered()">
+          <span>▶️</span>
+          <span>Lanjutkan Soal Berikutnya</span>
+        </button>
+        <button type="button" class="btn btn-emerald" onclick="attemptFinishQuiz()">
+          <span>🏁</span>
+          <span>SELESAIKAN KUIS & LIHAT NILAI</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. HALAMAN SOAL INTERAKTIF (1 SOAL PER HALAMAN)
+         ====================================================================== -->
+    <section id="screen-quiz" class="screen">
+      <!-- Bar Status Soal & Progres -->
+      <div class="quiz-topbar">
+        <span id="quiz-level-badge" class="level-pill pill-lvl-1">LEVEL 1 – MUDAH</span>
+        <div style="font-weight:800; color:var(--sky-dark); font-size:0.95rem;">
+          Terjawab: <span id="quiz-answered-count">0</span> / 36 Soal
+        </div>
+      </div>
+
+      <!-- Peta Nomor Soal (Indikator Sudah Dijawab & Belum Dijawab) -->
+      <div class="question-map-drawer">
+        <div class="map-header">
+          <span>🧭 Navigasi Nomor Soal (Klik nomor untuk berpindah)</span>
+          <div class="legend-row">
+            <span class="legend-item"><i class="dot-ind" style="background:var(--sky-main);"></i> Aktif</span>
+            <span class="legend-item"><i class="dot-ind" style="background:var(--emerald-light); border:1.5px solid var(--emerald-main);"></i> Dijawab</span>
+            <span class="legend-item"><i class="dot-ind" style="background:#f8fafc; border:1.5px solid #cbd5e1;"></i> Belum</span>
+          </div>
+        </div>
+        <div id="q-dots-container" class="q-dots-grid"></div>
+      </div>
+
+      <!-- Kartu Pertanyaan Utama -->
+      <div class="question-card">
+        <div class="q-number-badge">
+          <span>📌</span>
+          <span id="q-number-label">Soal Nomor 1 dari 36</span>
+          <span id="q-points-label" style="margin-left:6px; opacity:0.85;">(10 Poin)</span>
+        </div>
+
+        <div id="q-text-display" class="question-text">
+          Memuat pertanyaan...
+        </div>
+
+        <div id="options-container" class="options-grid">
+          <!-- Pilihan A, B, C, D dirender via JavaScript -->
+        </div>
+      </div>
+
+      <!-- Tombol Navigasi SEBELUMNYA / BERIKUTNYA / SELESAIKAN KUIS -->
+      <div class="quiz-nav-bar">
+        <button id="btn-prev-q" type="button" class="btn btn-outline" onclick="prevQuestion()">
+          <span>⬅️</span>
+          <span>SEBELUMNYA</span>
+        </button>
+
+        <button id="btn-next-q" type="button" class="btn btn-sky" onclick="nextQuestion()">
+          <span>BERIKUTNYA</span>
+          <span>➡️</span>
+        </button>
+
+        <button id="btn-finish-q" type="button" class="btn btn-emerald" onclick="attemptFinishQuiz()" style="display:none;">
+          <span>🏁</span>
+          <span>SELESAIKAN KUIS</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. HALAMAN HASIL AKHIR (SERTIFIKAT PENGHARGAAN DIGITAL)
+         ====================================================================== -->
+    <section id="screen-result" class="screen">
+      <div class="certificate-card">
+        <div class="cert-ribbon">🏅 SERTIFIKAT PENGHARGAAN PETUALANG SEJARAH ISLAM 🏅</div>
+
+        <div class="stars-row" id="result-stars">
+          <span class="star-anim">⭐</span>
+          <span class="star-anim">🌟</span>
+          <span class="star-anim">⭐</span>
+        </div>
+
+        <p style="font-weight:800; color:var(--text-muted); font-size:1.05rem;">Diberikan kepada Petualang Cilik:</p>
+        <h2 id="res-student-name" class="cert-student-name">Nama Siswa</h2>
+
+        <div>
+          <div id="res-predicate-badge" class="predicate-banner pred-sangat-hebat">SANGAT HEBAT!</div>
+        </div>
+
+        <div class="score-big-box">
+          <div class="score-big-num" id="res-total-score">0</div>
+          <div class="score-big-sub">Skor Akhir dari Maksimal 540 Poin</div>
+        </div>
+
+        <div class="stats-summary-grid">
+          <div class="stat-tile">
+            <div class="stat-tile-val">36</div>
+            <div class="stat-tile-lbl">Total Soal</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-tile-val" id="res-correct-count" style="color:var(--emerald-dark);">0</div>
+            <div class="stat-tile-lbl">Jawaban Benar</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-tile-val" id="res-wrong-count" style="color:var(--danger-dark);">0</div>
+            <div class="stat-tile-lbl">Jawaban Salah</div>
+          </div>
+          <div class="stat-tile">
+            <div class="stat-tile-val" id="res-percentage" style="color:var(--gold-dark);">0%</div>
+            <div class="stat-tile-lbl">Persentase Benar</div>
+          </div>
+        </div>
+
+        <!-- Rincian Capaian Per Level -->
+        <div class="level-breakdown-row">
+          <div class="lvl-mini-badge" style="border-color:#6ee7b7; background:#ecfdf5;">
+            ⭐ Level 1 (Mudah): <span id="res-lvl1-score">0 / 120</span> Poin
+          </div>
+          <div class="lvl-mini-badge" style="border-color:#7dd3fc; background:#f0f9ff;">
+            ⭐⭐ Level 2 (Sedang): <span id="res-lvl2-score">0 / 180</span> Poin
+          </div>
+          <div class="lvl-mini-badge" style="border-color:#fcd34d; background:#fffbeb;">
+            ⭐⭐⭐ Level 3 (Sulit): <span id="res-lvl3-score">0 / 240</span> Poin
+          </div>
+        </div>
+
+        <div id="res-motivation-text" class="motivation-box">
+          Luar biasa! Kamu menguasai kisah perjuangan dakwah Islam pada masa awal dengan sangat baik!
+        </div>
+
+        <div class="closing-message-box">
+          “Selamat! Kamu telah menyelesaikan Kuis Jejak Cahaya di Tanah Makkah. Semoga kisah perjuangan dakwah Islam mengajarkan kita untuk selalu beriman, bersabar, saling mendukung, dan teguh dalam melakukan kebaikan.”
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" class="btn btn-sky" onclick="openReviewScreen()">
+          <span>📖</span>
+          <span>LIHAT PEMBAHASAN SOAL</span>
+        </button>
+        <button type="button" class="btn btn-gold" onclick="confirmRetryQuiz()">
+          <span>🔄</span>
+          <span>ULANGI KUIS</span>
+        </button>
+        <button type="button" class="btn btn-outline" onclick="confirmGoHome()">
+          <span>🏠</span>
+          <span>KEMBALI KE HALAMAN UTAMA</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. HALAMAN PEMBAHASAN SELURUH 36 SOAL
+         ====================================================================== -->
+    <section id="screen-review" class="screen">
+      <div class="review-header-card">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+          <div>
+            <h2 style="color:var(--sky-dark); font-size:1.5rem;">📖 Pembahasan Lengkap 36 Soal</h2>
+            <p style="font-weight:700; color:var(--text-muted);">
+              Pelajari kembali jawabanmu dan pahami pembahasan setiap soal dengan saksama!
+            </p>
+          </div>
+          <button type="button" class="btn btn-emerald" onclick="backToResult()">
+            <span>🏅</span>
+            <span>KEMBALI KE HASIL</span>
+          </button>
+        </div>
+
+        <!-- Filter Level Pembahasan -->
+        <div class="filter-tabs" role="tablist">
+          <button type="button" class="filter-btn active" data-filter="all" onclick="filterReview('all', this)">
+            Semua Soal (1–36)
+          </button>
+          <button type="button" class="filter-btn" data-filter="1" onclick="filterReview('1', this)">
+            ⭐ Level 1 – Mudah (1–12)
+          </button>
+          <button type="button" class="filter-btn" data-filter="2" onclick="filterReview('2', this)">
+            ⭐⭐ Level 2 – Sedang (13–24)
+          </button>
+          <button type="button" class="filter-btn" data-filter="3" onclick="filterReview('3', this)">
+            ⭐⭐⭐ Level 3 – Sulit (25–36)
+          </button>
+        </div>
+      </div>
+
+      <div id="review-list-container" class="review-list">
+        <!-- Daftar 36 pembahasan dirender di sini -->
+      </div>
+
+      <div style="text-align:center;">
+        <button type="button" class="btn btn-emerald" onclick="backToResult()">
+          <span>🏅</span>
+          <span>KEMBALI KE HASIL</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       MODAL KONFIRMASI CUSTOM (RAMAH ANAK, TANPA ALERT/CONFIRM BROWSER)
+       ======================================================================== -->
+  <div id="custom-modal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div id="modal-icon" class="modal-icon">🤔</div>
+      <h3 id="modal-title" class="modal-title">Konfirmasi</h3>
+      <p id="modal-desc" class="modal-desc">Pesan konfirmasi</p>
+      <div id="modal-actions" class="modal-actions"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. BANK SOAL RESMI (36 SOAL PERSIS SESUAI DOKUMEN BANK SOAL KUIS INTERAKTIF)
+       ========================================================================== */
+    const QUIZ_DATA = [
+      // ==================== TINGKAT 1 – MUDAH (10 POIN PER SOAL) ====================
+      {
+        no: 1,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Di kota manakah awal perjuangan dakwah Islam dalam kisah ini berlangsung?",
+        options: {
+          A: "Madinah",
+          B: "Makkah",
+          C: "Thaif",
+          D: "Yerusalem"
+        },
+        answer: "B",
+        explanation: "Kisah perjuangan dakwah Islam dalam materi berlangsung di Makkah."
+      },
+      {
+        no: 2,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Tempat yang dikenal dalam kisah awal turunnya wahyu adalah ....",
+        options: {
+          A: "Gua Hira",
+          B: "Gua Tsur",
+          C: "Bukit Uhud",
+          D: "Lembah Badar"
+        },
+        answer: "A",
+        explanation: "Gua Hira dikenal dalam kisah awal turunnya wahyu."
+      },
+      {
+        no: 3,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Siapakah orang pertama yang beriman dan mendukung dakwah Rasulullah menurut materi video?",
+        options: {
+          A: "Aisyah",
+          B: "Khadijah binti Khuwaylid",
+          C: "Abu Bakar Ash-Shiddiq",
+          D: "Ali bin Abi Thalib"
+        },
+        answer: "B",
+        explanation: "Khadijah binti Khuwaylid disebut sebagai orang pertama yang beriman dan mendukung dakwah Rasulullah."
+      },
+      {
+        no: 4,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Siapakah sahabat yang dikenal sebagai salah satu orang yang lebih awal menerima ajaran Islam?",
+        options: {
+          A: "Abu Bakar Ash-Shiddiq",
+          B: "Abu Lahab",
+          C: "Abu Jahal",
+          D: "Fir'aun"
+        },
+        answer: "A",
+        explanation: "Abu Bakar Ash-Shiddiq termasuk sahabat yang lebih awal menerima Islam."
+      },
+      {
+        no: 5,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Ali bin Abi Thalib termasuk ....",
+        options: {
+          A: "Pemuka Quraisy yang menentang Islam",
+          B: "Orang yang lebih awal menerima Islam",
+          C: "Pedagang yang menolak dakwah",
+          D: "Pemimpin pasukan Quraisy"
+        },
+        answer: "B",
+        explanation: "Ali bin Abi Thalib termasuk orang yang lebih awal menerima Islam."
+      },
+      {
+        no: 6,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Zaid bin Haritsah dikenal sebagai ....",
+        options: {
+          A: "Salah satu Muslim generasi awal",
+          B: "Pemimpin kaum Quraisy",
+          C: "Pedagang dari negeri Romawi",
+          D: "Penjaga pasar Makkah"
+        },
+        answer: "A",
+        explanation: "Zaid bin Haritsah dikenal sebagai salah satu Muslim generasi awal."
+      },
+      {
+        no: 7,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Apakah arti istilah Assabiqunal Awwalun?",
+        options: {
+          A: "Orang-orang yang menentang Islam",
+          B: "Orang-orang yang paling awal menerima dan beriman kepada Islam",
+          C: "Orang-orang yang datang berdagang ke Makkah",
+          D: "Orang-orang yang memimpin kaum Quraisy"
+        },
+        answer: "B",
+        explanation: "Assabiqunal Awwalun berarti orang-orang yang paling awal menerima dan beriman kepada Islam."
+      },
+      {
+        no: 8,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Salah satu tempat penting untuk pembinaan kaum Muslimin awal adalah ....",
+        options: {
+          A: "Rumah Al-Arqam",
+          B: "Pasar Makkah",
+          C: "Istana kerajaan",
+          D: "Pelabuhan laut"
+        },
+        answer: "A",
+        explanation: "Rumah Al-Arqam menjadi salah satu tempat penting pembinaan kaum Muslimin awal."
+      },
+      {
+        no: 9,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Bukit yang menjadi salah satu lokasi penting dalam peristiwa dakwah terbuka adalah ....",
+        options: {
+          A: "Bukit Uhud",
+          B: "Bukit Safa",
+          C: "Bukit Tursina",
+          D: "Bukit Arafah"
+        },
+        answer: "B",
+        explanation: "Bukit Safa menjadi salah satu lokasi penting dalam dakwah terbuka."
+      },
+      {
+        no: 10,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Apakah inti ajaran dakwah Islam yang disampaikan dalam materi video?",
+        options: {
+          A: "Mengumpulkan kekayaan",
+          B: "Menguasai perdagangan",
+          C: "Mengajak manusia menyembah Allah Yang Maha Esa",
+          D: "Mempertahankan semua tradisi masyarakat"
+        },
+        answer: "C",
+        explanation: "Inti dakwah Islam adalah mengajak manusia menyembah Allah Yang Maha Esa."
+      },
+      {
+        no: 11,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Bagaimana sikap sebagian kaum Muslimin awal ketika menghadapi kesulitan?",
+        options: {
+          A: "Meninggalkan keimanan",
+          B: "Tetap berusaha teguh dalam keimanan",
+          C: "Membalas dengan kekerasan",
+          D: "Berhenti melakukan kebaikan"
+        },
+        answer: "B",
+        explanation: "Kaum Muslimin awal tetap berusaha teguh dalam keimanan meskipun menghadapi kesulitan."
+      },
+      {
+        no: 12,
+        level: 1,
+        levelName: "LEVEL 1 – MUDAH",
+        points: 10,
+        question: "Pelajaran utama yang disampaikan Pak Rozi dalam kisah ini adalah ....",
+        options: {
+          A: "Kesabaran, keberanian, dan keteguhan hati",
+          B: "Kekayaan, kekuasaan, dan ketenaran",
+          C: "Persaingan, kemarahan, dan kesombongan",
+          D: "Perdagangan, perjalanan, dan perlombaan"
+        },
+        answer: "A",
+        explanation: "Pak Rozi menyampaikan hikmah berupa kesabaran, keberanian, dan keteguhan hati."
+      },
+
+      // ==================== TINGKAT 2 – SEDANG (15 POIN PER SOAL) ====================
+      {
+        no: 13,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Mengapa Makkah dikenal sebagai tempat yang ramai dikunjungi para pedagang pada masa itu?",
+        options: {
+          A: "Karena menjadi tempat perdagangan dan pertemuan para kafilah",
+          B: "Karena memiliki banyak pelabuhan laut",
+          C: "Karena menjadi pusat industri modern",
+          D: "Karena menjadi tempat pertanian terbesar"
+        },
+        answer: "A",
+        explanation: "Makkah dikenal sebagai tempat perdagangan dan pertemuan para kafilah."
+      },
+      {
+        no: 14,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Bagaimana kondisi sebagian masyarakat Makkah sebelum dakwah Islam berkembang?",
+        options: {
+          A: "Seluruh masyarakat telah menjalankan ajaran tauhid",
+          B: "Sebagian masyarakat masih menjalankan kepercayaan dan tradisi penyembahan berhala",
+          C: "Seluruh masyarakat meninggalkan tradisi lama",
+          D: "Semua masyarakat telah menjadi Muslim"
+        },
+        answer: "B",
+        explanation: "Sebagian masyarakat masih menjalankan kepercayaan dan tradisi penyembahan berhala."
+      },
+      {
+        no: 15,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Mengapa Khadijah binti Khuwaylid memiliki kedudukan penting dalam kisah awal dakwah Islam?",
+        options: {
+          A: "Karena menjadi orang pertama yang beriman dan mendukung dakwah Rasulullah",
+          B: "Karena memimpin kaum Quraisy menentang Islam",
+          C: "Karena menjadi pemimpin perdagangan seluruh Arab",
+          D: "Karena membangun Bukit Safa"
+        },
+        answer: "A",
+        explanation: "Khadijah merupakan orang pertama yang beriman dan mendukung dakwah Rasulullah."
+      },
+      {
+        no: 16,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Apa makna penting keberadaan Rumah Al-Arqam bagi kaum Muslimin awal?",
+        options: {
+          A: "Tempat utama perdagangan kain",
+          B: "Tempat pembinaan kaum Muslimin awal",
+          C: "Tempat berkumpulnya para pemuka Quraisy",
+          D: "Tempat penyimpanan barang dagangan"
+        },
+        answer: "B",
+        explanation: "Rumah Al-Arqam menjadi tempat penting untuk pembinaan kaum Muslimin awal."
+      },
+      {
+        no: 17,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Bagaimana tahapan dakwah Islam pada masa awal menurut materi video?",
+        options: {
+          A: "Dimulai secara terbuka, kemudian kepada keluarga",
+          B: "Dimulai dari lingkungan terdekat, kemudian disampaikan secara terbuka",
+          C: "Dimulai melalui perdagangan, kemudian peperangan",
+          D: "Dimulai dengan meninggalkan Makkah"
+        },
+        answer: "B",
+        explanation: "Dakwah dimulai dari lingkungan terdekat, lalu disampaikan secara terbuka."
+      },
+      {
+        no: 18,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Apa yang terjadi ketika dakwah Islam disampaikan secara terbuka di Bukit Safa?",
+        options: {
+          A: "Masyarakat Makkah mendapat seruan dakwah secara terbuka",
+          B: "Seluruh masyarakat langsung menerima Islam",
+          C: "Kegiatan perdagangan dihentikan",
+          D: "Kota Makkah ditinggalkan seluruh penduduknya"
+        },
+        answer: "A",
+        explanation: "Bukit Safa berkaitan dengan seruan dakwah kepada masyarakat Makkah secara terbuka."
+      },
+      {
+        no: 19,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Bagaimana tanggapan masyarakat terhadap dakwah Islam?",
+        options: {
+          A: "Semua masyarakat langsung menerima",
+          B: "Semua masyarakat tidak memberikan tanggapan",
+          C: "Ada yang memperhatikan, ragu, dan menolak",
+          D: "Semua masyarakat meninggalkan Makkah"
+        },
+        answer: "C",
+        explanation: "Tanggapan masyarakat beragam: ada yang memperhatikan, ragu, dan menolak."
+      },
+      {
+        no: 20,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Mengapa sebagian pemuka Quraisy menentang dakwah Islam?",
+        options: {
+          A: "Karena dakwah Islam mengajak manusia menyembah banyak berhala",
+          B: "Karena mereka khawatir ajaran tauhid mengubah kepercayaan, tradisi, dan pengaruh yang telah lama dipertahankan",
+          C: "Karena dakwah Islam melarang semua kegiatan perdagangan",
+          D: "Karena dakwah Islam mengharuskan masyarakat pindah ke negeri lain"
+        },
+        answer: "B",
+        explanation: "Sebagian pemuka Quraisy khawatir ajaran tauhid mengubah kepercayaan, tradisi, dan pengaruh mereka."
+      },
+      {
+        no: 21,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Apa hubungan antara Assabiqunal Awwalun dan tumbuhnya komunitas Muslim awal?",
+        options: {
+          A: "Orang-orang yang lebih awal beriman menjadi bagian dari tumbuhnya komunitas Muslim awal",
+          B: "Assabiqunal Awwalun merupakan kelompok penentang Islam",
+          C: "Assabiqunal Awwalun adalah nama pasar di Makkah",
+          D: "Assabiqunal Awwalun merupakan kelompok pedagang Quraisy"
+        },
+        answer: "A",
+        explanation: "Orang-orang yang lebih awal beriman menjadi bagian dari tumbuhnya komunitas Muslim awal."
+      },
+      {
+        no: 22,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Manakah kelompok nama berikut yang seluruhnya merupakan contoh tokoh yang disebut dalam materi Assabiqunal Awwalun?",
+        options: {
+          A: "Khadijah, Abu Bakar, Ali bin Abi Thalib, dan Zaid bin Haritsah",
+          B: "Abu Jahal, Abu Lahab, Khadijah, dan Zaid bin Haritsah",
+          C: "Abu Lahab, Abu Bakar, Abu Jahal, dan Ali bin Abi Thalib",
+          D: "Abu Jahal, Abu Lahab, Abu Bakar, dan Abu Sufyan"
+        },
+        answer: "A",
+        explanation: "Keempat nama tersebut adalah contoh tokoh yang disebut dalam materi Assabiqunal Awwalun."
+      },
+      {
+        no: 23,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Apa yang dilakukan kaum Muslimin awal di tempat pembinaan seperti Rumah Al-Arqam?",
+        options: {
+          A: "Memperkuat keimanan dan kebersamaan",
+          B: "Menyusun rencana perdagangan",
+          C: "Mengadakan perlombaan antarkabilah",
+          D: "Mengumpulkan barang dagangan"
+        },
+        answer: "A",
+        explanation: "Pembinaan membantu kaum Muslimin awal memperkuat keimanan dan kebersamaan."
+      },
+      {
+        no: 24,
+        level: 2,
+        levelName: "LEVEL 2 – SEDANG",
+        points: 15,
+        question: "Mengapa kesabaran sangat diperlukan oleh kaum Muslimin awal?",
+        options: {
+          A: "Karena mereka menghadapi tekanan dan kesulitan dalam mempertahankan keimanan",
+          B: "Karena mereka ingin menjadi pedagang terkenal",
+          C: "Karena mereka ingin menguasai seluruh pasar",
+          D: "Karena mereka tidak ingin mengenal masyarakat lain"
+        },
+        answer: "A",
+        explanation: "Kesabaran diperlukan karena sebagian Muslim awal menghadapi tekanan dan kesulitan."
+      },
+
+      // ==================== TINGKAT 3 – SULIT (20 POIN PER SOAL) ====================
+      {
+        no: 25,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Perhatikan pernyataan berikut:\n1. Dakwah Islam dimulai dari lingkungan terdekat.\n2. Dakwah kemudian disampaikan secara terbuka.\n3. Sebagian pemuka Quraisy mulai menentang dakwah Islam.\n\nUrutan peristiwa yang tepat adalah ....",
+        options: {
+          A: "1 – 2 – 3",
+          B: "2 – 1 – 3",
+          C: "3 – 2 – 1",
+          D: "2 – 3 – 1"
+        },
+        answer: "A",
+        explanation: "Dakwah dimulai dari lingkungan terdekat, dilanjutkan secara terbuka, kemudian muncul penentangan sebagian pemuka Quraisy."
+      },
+      {
+        no: 26,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Mengapa Assabiqunal Awwalun memiliki peran penting dalam sejarah perkembangan Islam?",
+        options: {
+          A: "Karena mereka merupakan orang-orang yang lebih awal menerima dan beriman kepada ajaran Islam",
+          B: "Karena mereka merupakan seluruh pemimpin kaum Quraisy",
+          C: "Karena mereka menguasai seluruh perdagangan Makkah",
+          D: "Karena mereka membangun seluruh bangunan di Makkah"
+        },
+        answer: "A",
+        explanation: "Assabiqunal Awwalun memiliki arti penting karena mereka termasuk orang-orang yang lebih awal menerima Islam."
+      },
+      {
+        no: 27,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Pernyataan yang paling tepat mengenai empat nama yang dicontohkan dalam materi Assabiqunal Awwalun adalah ....",
+        options: {
+          A: "Mereka adalah satu-satunya orang yang pernah menerima Islam pada masa awal",
+          B: "Mereka merupakan contoh orang-orang yang lebih awal menerima Islam, bukan daftar lengkap seluruh Assabiqunal Awwalun",
+          C: "Mereka seluruhnya merupakan pemuka Quraisy yang menolak Islam",
+          D: "Mereka baru menerima Islam setelah dakwah terbuka di Bukit Safa"
+        },
+        answer: "B",
+        explanation: "Empat nama tersebut merupakan contoh, bukan daftar lengkap seluruh Assabiqunal Awwalun."
+      },
+      {
+        no: 28,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Perhatikan keadaan berikut:\nSebagian masyarakat Makkah memperhatikan dakwah Islam, sebagian masih ragu, dan sebagian lainnya menolak.\n\nKesimpulan yang paling tepat adalah ....",
+        options: {
+          A: "Dakwah Islam mendapatkan tanggapan yang beragam dari masyarakat",
+          B: "Seluruh masyarakat Makkah menerima Islam",
+          C: "Tidak ada masyarakat yang mengetahui dakwah Islam",
+          D: "Semua masyarakat memiliki pendapat yang sama"
+        },
+        answer: "A",
+        explanation: "Perbedaan tanggapan menunjukkan bahwa masyarakat memberikan respons yang beragam."
+      },
+      {
+        no: 29,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Apa hubungan antara ajaran tauhid dan penentangan sebagian pemuka Quraisy menurut materi video?",
+        options: {
+          A: "Ajaran tauhid dianggap dapat mengubah kepercayaan, tradisi, dan pengaruh yang telah lama mereka pertahankan",
+          B: "Ajaran tauhid mengharuskan semua orang meninggalkan kegiatan perdagangan",
+          C: "Ajaran tauhid mengajarkan penyembahan kepada banyak berhala",
+          D: "Ajaran tauhid melarang masyarakat tinggal di Makkah"
+        },
+        answer: "A",
+        explanation: "Penentangan sebagian pemuka Quraisy berkaitan dengan kekhawatiran terhadap perubahan kepercayaan, tradisi, dan pengaruh."
+      },
+      {
+        no: 30,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Seorang peserta didik mengetahui bahwa Khadijah, Abu Bakar, Ali bin Abi Thalib, dan Zaid bin Haritsah termasuk contoh tokoh Muslim generasi awal. Kesimpulan yang benar adalah ....",
+        options: {
+          A: "Mereka merupakan contoh orang-orang yang lebih awal menerima Islam",
+          B: "Mereka merupakan seluruh tokoh yang pernah berdakwah di Makkah",
+          C: "Mereka adalah pemimpin kelompok penentang Islam",
+          D: "Mereka merupakan pedagang yang tidak mengenal ajaran Islam"
+        },
+        answer: "A",
+        explanation: "Keempat tokoh tersebut merupakan contoh orang-orang yang lebih awal menerima Islam."
+      },
+      {
+        no: 31,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Jika dakwah Islam pada masa awal dilakukan kepada orang-orang terdekat terlebih dahulu, kemudian disampaikan secara terbuka, hal tersebut menunjukkan bahwa ....",
+        options: {
+          A: "Dakwah berlangsung melalui tahapan",
+          B: "Dakwah hanya ditujukan kepada pedagang",
+          C: "Dakwah tidak membutuhkan kesabaran",
+          D: "Dakwah dilakukan tanpa memperhatikan keadaan masyarakat"
+        },
+        answer: "A",
+        explanation: "Penyampaian dakwah melalui lingkungan terdekat lalu secara terbuka menunjukkan adanya tahapan."
+      },
+      {
+        no: 32,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Perhatikan dua peristiwa berikut:\nPeristiwa pertama: kaum Muslimin awal mendapatkan pembinaan dan memperkuat kebersamaan.\nPeristiwa kedua: sebagian kaum Muslimin menghadapi tekanan dan kesulitan.\n\nKesimpulan yang paling tepat adalah ....",
+        options: {
+          A: "Pembinaan dan kebersamaan menjadi bagian penting dalam menghadapi tantangan",
+          B: "Pembinaan membuat semua tantangan langsung hilang",
+          C: "Tekanan membuat kaum Muslimin berhenti beriman",
+          D: "Kebersamaan tidak memiliki hubungan dengan keteguhan hati"
+        },
+        answer: "A",
+        explanation: "Pembinaan dan kebersamaan merupakan bagian penting dalam menghadapi tantangan."
+      },
+      {
+        no: 33,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Seorang teman diejek ketika berusaha melakukan kebaikan. Ia kemudian tetap bersikap baik dan tidak membalas ejekan tersebut. Sikap itu paling sesuai dengan hikmah kisah kaum Muslimin awal, yaitu ....",
+        options: {
+          A: "Sabar dan teguh dalam kebaikan",
+          B: "Membalas setiap ejekan",
+          C: "Menghindari semua orang selamanya",
+          D: "Berhenti melakukan kebaikan"
+        },
+        answer: "A",
+        explanation: "Tidak membalas ejekan dan tetap melakukan kebaikan mencerminkan kesabaran dan keteguhan hati."
+      },
+      {
+        no: 34,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Mengapa Rumah Al-Arqam dan Bukit Safa memiliki fungsi sejarah yang berbeda dalam materi ini?",
+        options: {
+          A: "Rumah Al-Arqam berkaitan dengan pembinaan kaum Muslimin awal, sedangkan Bukit Safa berkaitan dengan dakwah terbuka",
+          B: "Rumah Al-Arqam merupakan pasar, sedangkan Bukit Safa merupakan tempat tinggal pedagang",
+          C: "Rumah Al-Arqam merupakan tempat penentangan Quraisy, sedangkan Bukit Safa merupakan tempat perdagangan",
+          D: "Keduanya merupakan tempat penyimpanan barang dagangan"
+        },
+        answer: "A",
+        explanation: "Rumah Al-Arqam berkaitan dengan pembinaan, sedangkan Bukit Safa berkaitan dengan dakwah terbuka."
+      },
+      {
+        no: 35,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Perhatikan pernyataan berikut:\n“Sejarah dakwah Islam pada masa awal mengajarkan bahwa mempertahankan keimanan membutuhkan kesabaran dan keteguhan hati.”\n\nAlasan yang paling sesuai dengan pernyataan tersebut adalah ....",
+        options: {
+          A: "Sebagian kaum Muslimin awal menghadapi tekanan dan kesulitan karena mempertahankan keimanan",
+          B: "Semua masyarakat Makkah langsung menerima dakwah Islam",
+          C: "Kaum Muslimin awal tidak pernah menghadapi tantangan",
+          D: "Dakwah Islam hanya membahas kegiatan perdagangan"
+        },
+        answer: "A",
+        explanation: "Sebagian kaum Muslimin awal menghadapi tekanan dan kesulitan dalam mempertahankan keimanan."
+      },
+      {
+        no: 36,
+        level: 3,
+        levelName: "LEVEL 3 – SULIT",
+        points: 20,
+        question: "Setelah mempelajari kisah awal dakwah Islam, tindakan yang paling tepat diterapkan oleh peserta didik dalam kehidupan sehari-hari adalah ....",
+        options: {
+          A: "Tetap beriman, sabar menghadapi kesulitan, saling mendukung, dan teguh melakukan kebaikan",
+          B: "Memaksakan pendapat kepada semua teman",
+          C: "Membalas perlakuan buruk dengan keburukan",
+          D: "Menghindari tanggung jawab ketika menghadapi masalah"
+        },
+        answer: "A",
+        explanation: "Nilai yang dapat diterapkan adalah beriman, sabar, saling mendukung, dan teguh melakukan kebaikan."
+      }
+    ];
+
+    /* ==========================================================================
+       2. STATE APLIKASI & PENYIMPANAN SESI SEMENTARA
+       ========================================================================== */
+    const state = {
+      studentName: "",
+      answers: {}, // key: index soal (0..35), value: 'A' | 'B' | 'C' | 'D'
+      currentIndex: 0,
+      isCompleted: false,
+      soundEnabled: true,
+      completedLevelsNotified: { 1: false, 2: false, 3: false }
+    };
+
+    /* ==========================================================================
+       3. EFEK SUARA RINGAN (WEB AUDIO API TANPA FILE EKSTERNAL)
+       ========================================================================== */
+    let audioCtx = null;
+
+    function playTone(type) {
+      if (!state.soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const now = audioCtx.currentTime;
+
+        if (type === 'select') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(780, now + 0.12);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.14);
+        } else if (type === 'levelUp') {
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+            gain.gain.setValueAtTime(0.14, now + idx * 0.09);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.22);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.09);
+            osc.stop(now + idx * 0.09 + 0.22);
+          });
+        } else if (type === 'click') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(420, now);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.07);
+        }
+      } catch (e) {
+        // Abaikan jika browser memblokir audio
+      }
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById('sound-icon').textContent = state.soundEnabled ? '🔊' : '🔇';
+      document.getElementById('sound-label').textContent = state.soundEnabled ? 'Suara ON' : 'Suara OFF';
+      if (state.soundEnabled) playTone('select');
+    }
+
+    /* ==========================================================================
+       4. NAVIGASI HALAMAN & MANAJEMEN SESI
+       ========================================================================== */
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Atur visibilitas tombol topbar sesuai halaman aktif
+      const pillStudent = document.getElementById('top-student-pill');
+      const btnHub = document.getElementById('btn-nav-hub');
+      const btnHome = document.getElementById('btn-nav-home');
+
+      if (screenId === 'screen-home') {
+        pillStudent.style.display = 'none';
+        btnHub.style.display = 'none';
+        btnHome.style.display = 'none';
+      } else {
+        pillStudent.style.display = 'inline-flex';
+        btnHome.style.display = 'inline-flex';
+        btnHub.style.display = (screenId === 'screen-quiz' && !state.isCompleted) ? 'inline-flex' : 'none';
+      }
+    }
+
+    function saveSessionTemp() {
+      try {
+        sessionStorage.setItem('jejak_cahaya_session', JSON.stringify({
+          studentName: state.studentName,
+          answers: state.answers,
+          currentIndex: state.currentIndex,
+          isCompleted: state.isCompleted
+        }));
+      } catch (e) {}
+    }
+
+    function loadSessionTemp() {
+      try {
+        const raw = sessionStorage.getItem('jejak_cahaya_session');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed.studentName) {
+            document.getElementById('student-name-input').value = parsed.studentName;
+          }
+        }
+      } catch (e) {}
+    }
+
+    /* ==========================================================================
+       5. LOGIKA HALAMAN PEMBUKA & PETA LEVEL
+       ========================================================================== */
+    function startAdventure() {
+      const input = document.getElementById('student-name-input');
+      const errorHint = document.getElementById('name-error-msg');
+      const trimmed = input.value.trim();
+
+      if (!trimmed) {
+        errorHint.style.display = 'block';
+        input.focus();
+        return;
+      }
+
+      errorHint.style.display = 'none';
+      state.studentName = trimmed;
+      document.getElementById('top-student-name').textContent = state.studentName;
+      document.getElementById('hub-student-name').textContent = state.studentName;
+
+      playTone('levelUp');
+      saveSessionTemp();
+      goToHub();
+    }
+
+    // Enter di input nama langsung memulai
+    document.getElementById('student-name-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        startAdventure();
+      }
+    });
+
+    function goToHub() {
+      if (state.isCompleted) {
+        showScreen('screen-result');
+        return;
+      }
+      playTone('click');
+      updateHubProgress();
+      showScreen('screen-hub');
+    }
+
+    function updateHubProgress() {
+      const answeredKeys = Object.keys(state.answers);
+      const totalAnswered = answeredKeys.length;
+      const pct = Math.round((totalAnswered / 36) * 100);
+
+      document.getElementById('hub-total-progress-text').textContent = `${totalAnswered} / 36 Soal (${pct}%)`;
+      document.getElementById('hub-total-progress-bar').style.width = `${pct}%`;
+
+      // Hitung per level
+      [1, 2, 3].forEach(lvl => {
+        const startIdx = (lvl - 1) * 12;
+        const endIdx = startIdx + 12;
+        let count = 0;
+        for (let i = startIdx; i < endIdx; i++) {
+          if (state.answers[i]) count++;
+        }
+        const lvlPct = Math.round((count / 12) * 100);
+        document.getElementById(`lvl${lvl}-done-text`).textContent = `${count} / 12 Soal`;
+        document.getElementById(`lvl${lvl}-bar`).style.width = `${lvlPct}%`;
+
+        const btnLabel = document.getElementById(`lvl${lvl}-btn-label`);
+        if (count === 12) {
+          btnLabel.textContent = `Tinjau Level ${lvl} ✅`;
+        } else if (count > 0) {
+          btnLabel.textContent = `Lanjutkan Level ${lvl}`;
+        } else {
+          btnLabel.textContent = `Mulai Level ${lvl}`;
+        }
+      });
+    }
+
+    function continueUnanswered() {
+      for (let i = 0; i < 36; i++) {
+        if (!state.answers[i]) {
+          openQuestion(i);
+          return;
+        }
+      }
+      openQuestion(0);
+    }
+
+    /* ==========================================================================
+       6. LOGIKA HALAMAN SOAL INTERAKTIF
+       ========================================================================== */
+    function openQuestion(index) {
+      if (state.isCompleted) {
+        showScreen('screen-result');
+        return;
+      }
+      state.currentIndex = index;
+      playTone('click');
+      renderQuestionMap();
+      renderCurrentQuestion();
+      showScreen('screen-quiz');
+      saveSessionTemp();
+    }
+
+    function renderQuestionMap() {
+      const container = document.getElementById('q-dots-container');
+      container.innerHTML = '';
+
+      for (let i = 0; i < 36; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'q-dot-btn';
+        btn.textContent = i + 1;
+        if (state.answers[i]) btn.classList.add('answered');
+        if (i === state.currentIndex) btn.classList.add('current');
+        btn.title = `Soal ${i + 1}${state.answers[i] ? ' (Sudah dijawab)' : ' (Belum dijawab)'}`;
+        btn.onclick = () => openQuestion(i);
+        container.appendChild(btn);
+      }
+
+      document.getElementById('quiz-answered-count').textContent = Object.keys(state.answers).length;
+    }
+
+    function renderCurrentQuestion() {
+      const q = QUIZ_DATA[state.currentIndex];
+
+      // Badge Level
+      const lvlBadge = document.getElementById('quiz-level-badge');
+      lvlBadge.textContent = q.levelName;
+      lvlBadge.className = `level-pill pill-lvl-${q.level}`;
+
+      // Nomor & Bobot Poin
+      document.getElementById('q-number-label').textContent = `Soal Nomor ${q.no} dari 36`;
+      document.getElementById('q-points-label').textContent = `(${q.points} Poin)`;
+
+      // Teks Pertanyaan
+      document.getElementById('q-text-display').textContent = q.question;
+
+      // Render 4 Pilihan Jawaban A, B, C, D
+      const optsContainer = document.getElementById('options-container');
+      optsContainer.innerHTML = '';
+
+      const selectedOpt = state.answers[state.currentIndex] || null;
+      ['A', 'B', 'C', 'D'].forEach(letter => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'option-card' + (selectedOpt === letter ? ' selected' : '');
+        card.onclick = () => selectAnswer(letter);
+
+        card.innerHTML = `
+          <span class="option-letter">${letter}</span>
+          <span class="option-text">${q.options[letter]}</span>
+          <span class="option-check" aria-hidden="true">✓</span>
+        `;
+        optsContainer.appendChild(card);
+      });
+
+      // Tombol Navigasi Bawah
+      const btnPrev = document.getElementById('btn-prev-q');
+      const btnNext = document.getElementById('btn-next-q');
+      const btnFinish = document.getElementById('btn-finish-q');
+
+      btnPrev.disabled = (state.currentIndex === 0);
+
+      if (state.currentIndex === 35) {
+        btnNext.style.display = 'none';
+        btnFinish.style.display = 'inline-flex';
+      } else {
+        btnNext.style.display = 'inline-flex';
+        btnFinish.style.display = 'none';
+      }
+    }
+
+    function selectAnswer(letter) {
+      state.answers[state.currentIndex] = letter;
+      playTone('select');
+      saveSessionTemp();
+
+      // Cek apakah satu level baru saja tuntas 12/12 soal
+      const currentLvl = QUIZ_DATA[state.currentIndex].level;
+      const startIdx = (currentLvl - 1) * 12;
+      let lvlDoneCount = 0;
+      for (let i = startIdx; i < startIdx + 12; i++) {
+        if (state.answers[i]) lvlDoneCount++;
+      }
+      if (lvlDoneCount === 12 && !state.completedLevelsNotified[currentLvl]) {
+        state.completedLevelsNotified[currentLvl] = true;
+        playTone('levelUp');
+      }
+
+      renderQuestionMap();
+      renderCurrentQuestion();
+    }
+
+    function prevQuestion() {
+      if (state.currentIndex > 0) {
+        openQuestion(state.currentIndex - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < 35) {
+        openQuestion(state.currentIndex + 1);
+      }
+    }
+
+    /* ==========================================================================
+       7. KONFIRMASI SELESAI KUIS & PERHITUNGAN SKOR OTOMATIS
+       ========================================================================== */
+    function attemptFinishQuiz() {
+      const answeredCount = Object.keys(state.answers).length;
+      const unansweredCount = 36 - answeredCount;
+
+      if (unansweredCount > 0) {
+        // Temukan nomor soal pertama yang belum dijawab
+        let firstMissing = 0;
+        for (let i = 0; i < 36; i++) {
+          if (!state.answers[i]) {
+            firstMissing = i;
+            break;
+          }
+        }
+
+        openModal(
+          '⚠️',
+          'Masih Ada Soal Belum Dijawab!',
+          `Kamu baru menjawab ${answeredCount} dari 36 soal. Masih ada ${unansweredCount} soal yang belum dijawab. Apakah kamu ingin melengkapinya dulu atau tetap menyelesaikan kuis?`,
+          [
+            {
+              label: `Lengkapi Soal No. ${firstMissing + 1}`,
+              cls: 'btn btn-sky',
+              action: () => {
+                closeModal();
+                openQuestion(firstMissing);
+              }
+            },
+            {
+              label: 'Tetap Selesaikan Kuis',
+              cls: 'btn btn-emerald',
+              action: () => {
+                closeModal();
+                finalizeQuiz();
+              }
+            }
+          ]
+        );
+      } else {
+        openModal(
+          '🏁',
+          'Selesaikan Petualangan Kuis?',
+          'Hebat! Semua 36 soal sudah kamu jawab. Apakah kamu yakin ingin menyelesaikan kuis dan melihat nilai akhirmu sekarang?',
+          [
+            {
+              label: 'Periksa Jawaban Lagi',
+              cls: 'btn btn-outline',
+              action: () => closeModal()
+            },
+            {
+              label: 'Ya, Lihat Nilai Saya!',
+              cls: 'btn btn-emerald',
+              action: () => {
+                closeModal();
+                finalizeQuiz();
+              }
+            }
+          ]
+        );
+      }
+    }
+
+    function finalizeQuiz() {
+      state.isCompleted = true;
+      saveSessionTemp();
+      playTone('levelUp');
+
+      let totalScore = 0;
+      let correctCount = 0;
+      let lvlScores = { 1: 0, 2: 0, 3: 0 };
+
+      QUIZ_DATA.forEach((q, idx) => {
+        const userAns = state.answers[idx];
+        if (userAns && userAns === q.answer) {
+          correctCount++;
+          totalScore += q.points;
+          lvlScores[q.level] += q.points;
+        }
+      });
+
+      const wrongCount = 36 - correctCount;
+      const percentage = Math.round((correctCount / 36) * 100);
+
+      // Tentukan Predikat sesuai ketentuan dokumen:
+      // 450–540 = SANGAT HEBAT!
+      // 350–449 = HEBAT!
+      // 250–349 = TERUS BERLATIH!
+      // Di bawah 250 = SEMANGAT BELAJAR LAGI!
+      let predicate = "";
+      let predClass = "";
+      let motivation = "";
+      let starsHtml = "";
+
+      if (totalScore >= 450) {
+        predicate = "SANGAT HEBAT!";
+        predClass = "pred-sangat-hebat";
+        motivation = "MasyaAllah, luar biasa! Kamu benar-benar memahami kisah dakwah Islam pada masa awal dan Assabiqunal Awwalun dengan sangat baik!";
+        starsHtml = '<span class="star-anim">🌟</span><span class="star-anim">🏆</span><span class="star-anim">🌟</span>';
+        launchConfetti();
+      } else if (totalScore >= 350) {
+        predicate = "HEBAT!";
+        predClass = "pred-hebat";
+        motivation = "Alhamdulillah, hasil yang sangat bagus! Terus pertahankan semangat belajarmu untuk meneladani para sahabat Nabi!";
+        starsHtml = '<span class="star-anim">⭐</span><span class="star-anim">⭐</span><span class="star-anim">⭐</span>';
+        launchConfetti();
+      } else if (totalScore >= 250) {
+        predicate = "TERUS BERLATIH!";
+        predClass = "pred-berlatih";
+        motivation = "Bagus, kamu sudah berusaha dengan baik! Yuk baca pembahasan soal agar pemahamanmu semakin mantap!";
+        starsHtml = '<span class="star-anim">⭐</span><span class="star-anim">⭐</span>';
+      } else {
+        predicate = "SEMANGAT BELAJAR LAGI!";
+        predClass = "pred-semangat";
+        motivation = "Jangan menyerah, Petualang Cilik! Buka menu Pembahasan Soal untuk mempelajari kembali kisah seru dakwah Islam di Makkah, lalu coba lagi ya!";
+        starsHtml = '<span class="star-anim">🌱</span><span class="star-anim">⭐</span>';
+      }
+
+      // Isi tampilan Sertifikat Hasil
+      document.getElementById('res-student-name').textContent = state.studentName;
+      document.getElementById('result-stars').innerHTML = starsHtml;
+
+      const predBadge = document.getElementById('res-predicate-badge');
+      predBadge.textContent = predicate;
+      predBadge.className = `predicate-banner ${predClass}`;
+
+      document.getElementById('res-total-score').textContent = totalScore;
+      document.getElementById('res-correct-count').textContent = correctCount;
+      document.getElementById('res-wrong-count').textContent = wrongCount;
+      document.getElementById('res-percentage').textContent = `${percentage}%`;
+
+      document.getElementById('res-lvl1-score').textContent = `${lvlScores[1]} / 120`;
+      document.getElementById('res-lvl2-score').textContent = `${lvlScores[2]} / 180`;
+      document.getElementById('res-lvl3-score').textContent = `${lvlScores[3]} / 240`;
+      document.getElementById('res-motivation-text').textContent = motivation;
+
+      showScreen('screen-result');
+    }
+
+    /* ==========================================================================
+       8. MENU PEMBAHASAN SOAL (HANYA BISA DIAKSES SETELAH KUIS SELESAI)
+       ========================================================================== */
+    function openReviewScreen() {
+      if (!state.isCompleted) return;
+      playTone('click');
+      renderReviewList('all');
+
+      // Reset tab aktif ke Semua Soal
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
+
+      showScreen('screen-review');
+    }
+
+    function filterReview(levelFilter, btnEl) {
+      playTone('click');
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btnEl.classList.add('active');
+      renderReviewList(levelFilter);
+    }
+
+    function renderReviewList(levelFilter) {
+      const container = document.getElementById('review-list-container');
+      container.innerHTML = '';
+
+      QUIZ_DATA.forEach((q, idx) => {
+        if (levelFilter !== 'all' && String(q.level) !== levelFilter) {
+          return;
+        }
+
+        const userAns = state.answers[idx] || null;
+        const isCorrect = (userAns === q.answer);
+
+        const userAnsFull = userAns
+          ? `${userAns}. ${q.options[userAns]}`
+          : 'Tidak dijawab';
+        const keyAnsFull = `${q.answer}. ${q.options[q.answer]}`;
+
+        const item = document.createElement('div');
+        item.className = `review-item ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+
+        item.innerHTML = `
+          <div class="review-top-row">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span class="q-number-badge" style="margin-bottom:0;">Soal No. ${q.no}</span>
+              <span class="level-pill pill-lvl-${q.level}" style="font-size:0.82rem; padding:4px 12px;">${q.levelName}</span>
+            </div>
+            <span class="status-badge ${isCorrect ? 'status-correct' : 'status-wrong'}">
+              ${isCorrect ? '✅ BENAR (+' + q.points + ' Poin)' : '❌ SALAH (0 Poin)'}
+            </span>
+          </div>
+
+          <div class="review-q-text">${q.question}</div>
+
+          <div class="review-answers-box">
+            <div class="ans-box ${isCorrect ? 'ans-user-correct' : 'ans-user-wrong'}">
+              <div style="font-size:0.82rem; opacity:0.85; margin-bottom:2px;">Jawaban Kamu:</div>
+              <div>${userAnsFull}</div>
+            </div>
+            <div class="ans-box ans-key">
+              <div style="font-size:0.82rem; opacity:0.85; margin-bottom:2px;">Kunci Jawaban Benar:</div>
+              <div>${keyAnsFull}</div>
+            </div>
+          </div>
+
+          <div class="explanation-box">
+            💡 <strong>Pembahasan:</strong> ${q.explanation}
+          </div>
+        `;
+
+        container.appendChild(item);
+      });
+    }
+
+    function backToResult() {
+      playTone('click');
+      showScreen('screen-result');
+    }
+
+    /* ==========================================================================
+       9. ULANGI KUIS & KEMBALI KE BERANDA
+       ========================================================================== */
+    function confirmRetryQuiz() {
+      openModal(
+        '🔄',
+        'Ulangi Kuis dari Awal?',
+        'Semua jawaban sebelumnya akan dihapus agar kamu bisa mencoba petualangan kuis dari awal lagi. Lanjutkan?',
+        [
+          {
+            label: 'Batal',
+            cls: 'btn btn-outline',
+            action: () => closeModal()
+          },
+          {
+            label: 'Ya, Ulangi Kuis',
+            cls: 'btn btn-gold',
+            action: () => {
+              closeModal();
+              state.answers = {};
+              state.currentIndex = 0;
+              state.isCompleted = false;
+              state.completedLevelsNotified = { 1: false, 2: false, 3: false };
+              saveSessionTemp();
+              goToHub();
+            }
+          }
+        ]
+      );
+    }
+
+    function confirmGoHome() {
+      openModal(
+        '🏠',
+        'Kembali ke Halaman Utama?',
+        'Kamu akan kembali ke halaman pembuka. Jika kuis belum selesai, progres jawabanmu tetap tersimpan selama sesi ini.',
+        [
+          {
+            label: 'Tetap di Sini',
+            cls: 'btn btn-outline',
+            action: () => closeModal()
+          },
+          {
+            label: 'Ke Halaman Utama',
+            cls: 'btn btn-sky',
+            action: () => {
+              closeModal();
+              if (state.isCompleted) {
+                // Reset jika sudah selesai dan kembali ke beranda untuk siswa baru
+                state.answers = {};
+                state.currentIndex = 0;
+                state.isCompleted = false;
+                state.completedLevelsNotified = { 1: false, 2: false, 3: false };
+              }
+              showScreen('screen-home');
+            }
+          }
+        ]
+      );
+    }
+
+    /* ==========================================================================
+       10. HELPER MODAL CUSTOM & ANIMASI CONFETTI
+       ========================================================================== */
+    function openModal(icon, title, desc, buttons) {
+      document.getElementById('modal-icon').textContent = icon;
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-desc').textContent = desc;
+
+      const actionsEl = document.getElementById('modal-actions');
+      actionsEl.innerHTML = '';
+      buttons.forEach(b => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = b.cls;
+        btn.textContent = b.label;
+        btn.onclick = b.action;
+        actionsEl.appendChild(btn);
+      });
+
+      document.getElementById('custom-modal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.remove('show');
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#10b981', '#0ea5e9', '#f59e0b', '#fbbf24', '#34d399', '#38bdf8'];
+      const pieces = Array.from({ length: 110 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: Math.random() * 10 + 6,
+        h: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        speedY: Math.random() * 3 + 2.2,
+        speedX: Math.random() * 2 - 1,
+        rot: Math.random() * 360,
+        rotSpeed: Math.random() * 6 - 3
+      }));
+
+      let frame = 0;
+      function animateConfetti() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        pieces.forEach(p => {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.rot += p.rotSpeed;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+
+        if (frame < 210) {
+          requestAnimationFrame(animateConfetti);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      animateConfetti();
+    }
+
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confetti-canvas');
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+
+    window.onload = function () {
+      loadSessionTemp();
+    };
+  </script>
+</body>
+</html>
